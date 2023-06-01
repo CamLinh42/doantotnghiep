@@ -39,7 +39,7 @@ export default function History() {
                 <td>{item.doctor}</td>
                 <td>{item.phone}</td>
                 <td>{item.note}</td>
-                <td>{item.trangthai ? item.trangthai : "Chờ xác nhận"}</td>
+                <td>{item.trangthai ? (item.trangthai == 1 ? "Đã xác nhận" : item.trangthai == 2 ? "Đã khám" : "") : "Chờ xác nhận"}</td>
             </tr>)}
             </tbody>
         </table>

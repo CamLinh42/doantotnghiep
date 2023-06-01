@@ -38,8 +38,10 @@ export const AuthContext=createContext();
         }
             querySnapshot.docs.forEach((item) => {
                 const row = item.data();
-                row.id = item.id;
-                all.push(row);
+                if(row.role == 2){
+                    row.id = item.id;
+                    all.push(row);
+                }
             });
             setUsers(all)
     };
