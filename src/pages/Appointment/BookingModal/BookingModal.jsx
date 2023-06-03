@@ -14,7 +14,7 @@ const BookingModal = ({ valueBook, selectedDate }) => {
   const formRef = useRef(null);
   const { name } = valueBook;
   const [date, setDate] = useState(null)
-  const { user, users, listAllUsers } = useContext(AuthContext);
+  const { user, users,userDb, listAllUsers } = useContext(AuthContext);
   const { department, getDepartment } = useContext(DepartmentContext);
   const {doctor, getDoctor  } = useContext(DoctorContext);
   const {hospital, getHospital  } = useContext(HospitalContext);
@@ -84,7 +84,7 @@ const BookingModal = ({ valueBook, selectedDate }) => {
       })
         .then((res) => {
           toast.success("Thành công");
-          getAppointment()
+          getAppointment(null, null, userDb?.name)
           if (modal.checked) {
             modal.checked = false;
           }

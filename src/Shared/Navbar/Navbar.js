@@ -5,9 +5,15 @@ import { AuthContext } from '../../Context/AuthProvider';
 const Navbar = () => {
     const { user, logOut, userDb } = useContext(AuthContext)
     const navigate = useNavigate();
+    console.log(window.location.pathname.split("/")[1], "check")
     useEffect(() => {
-        if(userDb?.role != 1 && user){
-            navigate('/dashboard')
+        if(window.location.pathname?.split("/")[1] !== "dashboard"){
+            if((userDb?.role == 2 || userDb?.role == 3) && user){
+                navigate('/dashboard')
+            }
+            if(userDb?.role == 4 && user){
+                navigate('/dashboard/allusers')
+            }
         }
     },[user, userDb])
 
@@ -27,7 +33,7 @@ const Navbar = () => {
             <>
                 {userDb?.role == 2 && <li><Link className='btn btn-ghost' to='/dashboard'>Quản lý</Link></li>}
                 {userDb?.role == 3 && <li><Link className='btn btn-ghost' to='/dashboard'>Quản lý</Link></li>}
-                {userDb?.role == 4 && <li><Link className='btn btn-ghost' to='/dashboard'>Quản lý</Link></li>}
+                {userDb?.role == 4 && <li><Link className='btn btn-ghost' to='/dashboard/allusers'>Quản lý</Link></li>}
                 <li>
                     <div className="dropdown p-0">
                         <label tabIndex={0} className="btn">{user.displayName || userDb.name}</label>

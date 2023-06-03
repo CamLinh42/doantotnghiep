@@ -53,7 +53,8 @@ const Login = () => {
                             {loginError && <p className='text-red-700'>{loginError}</p>}
                         </div>
                     </div>
-                    <input type="submit" className='btn btn-accent w-full m-3' />
+                    <label className='btn btn-accent w-full m-3' htmlFor='submit'>Đăng nhập</label>
+                    <input type="submit" id="submit" className='btn btn-accent w-full m-3 invisible' />
                     <p className='p-3'>Nếu chưa có tài khoản: <Link to='/signup' className='text-primary'> Đăng ký</Link></p>
                 </form>
                 {/* <div className="divider">OR</div>

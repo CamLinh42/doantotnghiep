@@ -122,11 +122,11 @@ const SignUp = () => {
             )}
           </div>
           {signUpError && <p className="text-red-700">{signUpError}</p>}
-          <input type="submit" className="btn btn-accent w-full m-3" />
+          <input type="submit" value={"Đăng ký"} className="btn btn-accent w-full m-3" />
           <p className="p-3 flex gap-1">
             Nếu bạn đã có tài khoản:
             <Link to="/login" className="text-primary">
-              Login
+              Đăng nhập
             </Link>
           </p>
         </form>

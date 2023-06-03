@@ -33,17 +33,25 @@ export const AuthContext=createContext();
         if(idBv){
             const q = query(collection(db, "users"), where("hospital", "==", idBv));
             querySnapshot = await getDocs(q);
-        }else {
-            querySnapshot = await getDocs(collection(db, "users"));
-        }
             querySnapshot.docs.forEach((item) => {
                 const row = item.data();
+                
                 if(row.role == 2){
                     row.id = item.id;
                     all.push(row);
                 }
             });
             setUsers(all)
+        }else {
+            querySnapshot = await getDocs(collection(db, "users"));
+            querySnapshot.docs.forEach((item) => {
+                const row = item.data();
+                    row.id = item.id;
+                    all.push(row);
+            });
+            setUsers(all)
+        }
+            
     };
 
     const getRole = async () => {

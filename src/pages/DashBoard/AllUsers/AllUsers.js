@@ -49,7 +49,7 @@ const AllUsers = () => {
     return (
         <div>
             <h2 className='text-2xl'>All Users</h2>
-            <input type="text" placeholder="Tìm kiếm email" onChange={searchUser} className="input input-bordered input-secondary w-full mt-3 ml-2 max-w-xs" />
+            <input type="text" placeholder="Tìm kiếm " onChange={searchUser} className="input input-bordered input-secondary w-full mt-3 ml-2 max-w-xs" />
             <div className="overflow-x-auto p-5">
                 <table className="table w-full max-h-[calc(100vh-250px)]">
 

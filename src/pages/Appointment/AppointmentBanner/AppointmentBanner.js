@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import chair from '../../../assets/images/chair.png'
+import chair from '../../../assets/images/chair1.png'
 import bg from '../../../assets/images/bg.png'
 import { DayPicker } from 'react-day-picker';
 import { format } from 'date-fns';

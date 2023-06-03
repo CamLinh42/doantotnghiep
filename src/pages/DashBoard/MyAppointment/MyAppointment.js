@@ -37,7 +37,7 @@ const getData = () => {
         <div className="max-h-calc(100%-20px)">
             <h2 className='text-2xl px-10 flex gap-2'>Danh sách lịch khám bệnh {userDb?.role == 3 ? <div>{userDb?.hospital}</div> : ''}</h2>
            
-            <label htmlFor="booking-modal " className="btn mt-3 mx-10">Đặt lịch ngay</label>
+            <label htmlFor="booking-modal" className="btn mt-3 mx-10">Đặt lịch ngay</label>
             <BookingModal valueBook={{}} selectedDate={null} />
             <div className="overflow-x-auto p-5">
                 <table className="table w-full">
