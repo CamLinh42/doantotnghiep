@@ -37,7 +37,7 @@ const Navbar = () => {
                 {userDb?.role == 4 && <li><Link className='btn btn-ghost' to='/dashboard/allusers'>Quản lý</Link></li>}
                 <li>
                     <div className="dropdown p-0">
-                        <label tabIndex={0} className="btn">{user.displayName || userDb.name}</label>
+                        <label tabIndex={0} className="btn">{user.displayName || userDb?.name}</label>
                         <ul tabIndex={0} className="dropdown-content menu shadow bg-base-100 rounded-box top-16 right-0">
                             <li><a>{user.email}</a></li>
                             {/* <li className='flex justify-center'><Link  to='/info' className='btn btn-ghost flex items-center w-full '>Cập nhật thông tin</Link></li> */}

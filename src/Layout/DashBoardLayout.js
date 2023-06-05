@@ -27,7 +27,7 @@ const DashBoardLayout = () => {
                             <li className='my-1'><Link to='/dashboard'>Danh sách Lịch</Link></li>
                         }
                         {(userDb?.role == 2) && 
-                            <li className='my-1'><Link to='/dashboard/allusers'>Người dùng</Link></li> 
+                            <li className='my-1'><Link to='/dashboard/allusers'>{userDb?.role == 2 ? "Nhân Viên" : "Người dùng"}</Link></li> 
                         }
                         {/* <li className='my-1'><Link to='/dashboard/bacsi'>Bác sĩ</Link></li> */}
                         {userDb?.role == 4 && <>

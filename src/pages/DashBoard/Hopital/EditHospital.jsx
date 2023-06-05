@@ -33,6 +33,8 @@ export default function EditHospital({valueEdit}) {
     console.log("mounted")
   },[])
 
+  console.log(valueEdit, "valueEdit")
+
   return (
     <div className="box-border">
       <input type="checkbox" id="edit-modal" className="modal-toggle" />
@@ -88,7 +90,7 @@ export default function EditHospital({valueEdit}) {
                 <span className="label-text">Chuyên môn</span>
               </label>
               <input
-              defaultValue={valueEdit?.chuyenmon}
+              defaultValue={valueEdit?.chuyenchua}
                 type="text"
                 className="input input-primary input-bordered w-full"
                 readOnly

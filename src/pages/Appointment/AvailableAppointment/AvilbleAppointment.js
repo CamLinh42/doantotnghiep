@@ -13,7 +13,6 @@ const AvilbleAppointment = ({ selectedDate, setSelectedDate }) => {
     // react query
   const { hospital, getHospital  } = useContext(HospitalContext);
 
-
   const searchBv = (e) => {
     getHospital(e.target.value)
   }

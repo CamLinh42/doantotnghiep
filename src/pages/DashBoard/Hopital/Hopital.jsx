@@ -34,14 +34,14 @@ export default function Hospital() {
           </thead>
           <tbody>
             {/* row 1 */}
-            {hospital.map((item, index) => (
+            {hospital.filter(item => item.status != "tuchoi").map((item, index) => (
               <tr key={index}>
                 <th>{index}</th>
                 <td className="max-w-[200px] truncate" title={item.name}>{item.name}</td>
                 {/* <td>{item.phone}</td> */}
                 <td>{item.bacsi}</td>
                 {/* <td className="max-w-[200px] truncate" title={item.address}>{item.address}</td> */}
-                <td>{!item.status ? "Chờ xác nhân" : item.status == "chapnhan" ? "Chấp nhận" : "Từ chối"}</td>
+                <td>{!item.status ? "Chờ xác nhân" : item.status == "chapnhan" ? "Chấp nhận" : item.status == "tuchoi" ? "Từ chối" : ""}</td>
                 <td>
                   {/* <div onClick={setValueEdit(item)}> */}
                   <label
