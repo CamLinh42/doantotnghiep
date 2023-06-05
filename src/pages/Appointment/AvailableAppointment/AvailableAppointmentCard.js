@@ -1,7 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 const AvailableAppointmentCard = ({ hospital, setValueBook }) => {
     const { name, address } = hospital;
+    const navigate = useNavigate();
+
     return (
         <div>
             <div className="card shadow-xl text-center">
@@ -10,6 +15,9 @@ const AvailableAppointmentCard = ({ hospital, setValueBook }) => {
                     <p>{address}</p>
                     <div className="card-actions ">
                         <label onClick={() => setValueBook(hospital)} htmlFor="booking-modal" className="btn btn-primary w-full text-white">Đặt lịch ngay</label>
+                        <label onClick={()=> navigate(`/detail/${name}`)} className="btn btn-primary w-full text-white">
+                            Chi tiết bệnh viện
+                        </label>
                     </div>
                 </div>
             </div>

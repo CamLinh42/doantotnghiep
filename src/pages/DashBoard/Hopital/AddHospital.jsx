@@ -1,29 +1,62 @@
 import { addDoc, collection } from "firebase/firestore";
-import React, { useContext } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { db } from "../../../Firebase/Firebase.config";
+import { db, uploadFile } from "../../../Firebase/Firebase.config";
 import { HospitalContext } from "../../../Context/HospitalProvider";
 
 export default function AddHospital() {
 
   const { getHospital  } = useContext(HospitalContext);
   const { register, handleSubmit, formState: { errors } } = useForm();
-  
+  const [listImage, setListImage] = useState([]);
+  const [err, setErr] = useState("")
+
   const handleAddDoctor = async (data) => {
-    console.log(data, "data")
-    await addDoc(collection(db, "benhvien"), {
-      name: data.name,
-      phone: data.phone,
-      address: data.address,
-    }).then((res) => {
-      console.log(res, "res")
-      getHospital()
-      const modal = document.getElementById("my-modal")
-      if(modal.checked){
-        modal.checked = false
-      }
-    }).catch(e => {console.log(e, "error")})
+    setErr("");
+    setTimeout( async ()=>{
+      await addDoc(collection(db, "benhvien"), {
+        name: data.name,
+        phone: data.phone,
+        address: data.address,
+        chitiet:data.chitiet,
+        anh:listImage,
+        chuyenchua:data.chuyenchua
+      }).then((res) => {
+        console.log(res, "res")
+        getHospital()
+        const modal = document.getElementById("my-modal")
+        if(modal.checked){
+          modal.checked = false
+        }
+      }).catch(e => {console.log(e, "error")})
+      setListImage([])
+    },1000)
+
   }
+  const handleSaveImage = useCallback((e) => {
+    const listFile = e.target.files;
+    let arr = [];
+    if(listFile.length){
+      Object.values(listFile).forEach(file=>{
+        try {
+          if (file) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = async () => {
+              const dataUrl = reader.result;
+              const imageURL = await uploadFile(dataUrl)
+              arr.push(imageURL)
+            };
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      })
+    }
+    setListImage(arr)
+
+  },[]);  
+  console.log(listImage);
   return (
     <div className="box-border">
       <input type="checkbox" id="my-modal" className="modal-toggle" />
@@ -90,6 +123,57 @@ export default function AddHospital() {
                 </p>
               )}
             </div>
+            <div className="form-control w-full m-0">
+              <label className="label">
+                <span className="label-text">Chi tiết phòng khám</span>
+              </label>
+              <input
+                type="text"
+                {...register("chitiet", { required: "chitiet is required" })}
+                className="input input-primary input-bordered w-full"
+              />
+              {errors.chitiet && (
+                <p role="alert" className="text-red-600">
+                  {errors.chitiet?.message}
+                </p>
+              )}
+            </div>
+            
+            <div className="form-control w-full m-0">
+              <label className="label">
+                <span className="label-text">Ảnh phòng khám</span>
+              </label>
+              <input
+                type="file"
+                className="input input-primary input-bordered w-full"
+                accept="image/*"
+                multiple
+                onChange={handleSaveImage}
+              />
+              {!!err && (
+                <p role="alert" className="text-red-600">
+                  {err}
+                </p>
+              )}
+            </div>
+
+            <div className="form-control w-full m-0">
+              <label className="label">
+                <span className="label-text">Chuyên chữa các bệnh</span>
+              </label>
+              <input
+                type="text"
+                {...register("chuyenchua", { required: "bắt buộc" })}
+                className="input input-primary input-bordered w-full"
+              />
+              {errors.chuyenchua && (
+                <p role="alert" className="text-red-600">
+                  {errors.chuyenchua?.message}
+                </p>
+              )}
+            </div>
+
+
             {/* <div className="form-control w-full m-0">
               <label className="label">
                 <span className="label-text">Specialty</span>
@@ -129,7 +213,7 @@ export default function AddHospital() {
             </div> */}
 
             <div className="modal-action justify-center">
-              <label htmlFor="my-modal" className="btn">Hủy</label>
+              <label htmlFor="my-modal" className="btn" onClick={()=>setListImage([])}>Hủy</label>
               <button type="submit" className="btn">Xác nhận</button>
             </div>
           </form>

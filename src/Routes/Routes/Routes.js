@@ -16,6 +16,8 @@ import Hopital from "../../pages/DashBoard/Hopital/Hopital";
 import Department from "../../pages/DashBoard/Department/Department";
 import Doctor from "../../pages/DashBoard/Doctor/Doctor";
 import History from "../../pages/History/History";
+import Detail from "../../pages/Detail/Detail";
+import DoctorDetail from "../../pages/Detail/DoctorDetail";
 
 const router = createBrowserRouter([
     {
@@ -27,6 +29,8 @@ const router = createBrowserRouter([
             { path: '/login', element: <Login></Login> },
             { path: '/signup', element: <SignUp></SignUp> },
             { path: '/history', element: <History></History> },
+            { path: '/detail/:phongkham', element: <Detail></Detail> },
+            { path: '/detail/doctor/:phongkham', element: <DoctorDetail></DoctorDetail> },
 
         ]
     },

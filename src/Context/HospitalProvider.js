@@ -4,6 +4,7 @@ import {
   orderBy,
   query,
   startAt,
+  where,
 } from "firebase/firestore";
 import React, { createContext, useState } from "react";
 import { db } from "../Firebase/Firebase.config";
@@ -12,6 +13,7 @@ export const HospitalContext = createContext();
 
 const HospitalProvider = ({ children }) => {
   const [hospital, setHospital] = useState([]);
+  const [hospitalByName, setHospitalByName] = useState([]);
   const getHospital = async (name) => {
     let querySnapshot;
     const all = [];
@@ -29,8 +31,23 @@ const HospitalProvider = ({ children }) => {
     });
     setHospital(all);
   };
+  const getHospitalByName = async (name) => {
+    const allData = [];
+    const q = query(collection(db, "benhvien"), where("name", "==", name));
+    const snapshot = await getDocs(q);
+    snapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+      allData.push(doc.data());
+    });
+    setHospitalByName(allData);
+  };
 
-  const hospitalInfo = { hospital, getHospital };
+  const hospitalInfo = {
+    hospital,
+    getHospital,
+    hospitalByName,
+    getHospitalByName,
+  };
 
   return (
     <HospitalContext.Provider value={hospitalInfo}>
