@@ -13,6 +13,7 @@ const AvilbleAppointment = ({ selectedDate, setSelectedDate }) => {
     // react query
   const { hospital, getHospital  } = useContext(HospitalContext);
 
+
   const searchBv = (e) => {
     getHospital(e.target.value)
   }
@@ -29,7 +30,7 @@ const AvilbleAppointment = ({ selectedDate, setSelectedDate }) => {
             </div>
             <div className='grid mt-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                 {
-                    hospital.map(item => 
+                    hospital.map(item => item.status == "chapnhan" &&
                     <AvailableAppointmentCard
                         key={item.id}
                         hospital={item}

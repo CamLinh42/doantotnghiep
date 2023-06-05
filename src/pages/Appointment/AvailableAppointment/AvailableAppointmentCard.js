@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const AvailableAppointmentCard = ({ hospital, setValueBook }) => {
-    const { name, address } = hospital;
+    const { bacsi, name, address } = hospital;
     const navigate = useNavigate();
 
     return (

@@ -25,8 +25,10 @@ export default function Hospital() {
             <tr>
               <th></th>
               <th>Name</th>
-              <th>Điện thoại</th>
-              <th>Địa chỉ</th>
+              {/* <th>Điện thoại</th> */}
+              <th>Bác sĩ</th>
+              {/* <th>Địa chỉ</th> */}
+              <th>Trạng thái</th>
               <th>Hành động</th>
             </tr>
           </thead>
@@ -35,9 +37,11 @@ export default function Hospital() {
             {hospital.map((item, index) => (
               <tr key={index}>
                 <th>{index}</th>
-                <td>{item.name}</td>
-                <td>{item.phone}</td>
-                <td>{item.address}</td>
+                <td className="max-w-[200px] truncate" title={item.name}>{item.name}</td>
+                {/* <td>{item.phone}</td> */}
+                <td>{item.bacsi}</td>
+                {/* <td className="max-w-[200px] truncate" title={item.address}>{item.address}</td> */}
+                <td>{!item.status ? "Chờ xác nhân" : item.status == "chapnhan" ? "Chấp nhận" : "Từ chối"}</td>
                 <td>
                   {/* <div onClick={setValueEdit(item)}> */}
                   <label
@@ -45,7 +49,7 @@ export default function Hospital() {
                     onClick={() => openEdit(item)}
                     className="btn btn-xs btn-outline btn-primary"
                     >
-                    Chỉnh sửa
+                      Xem và sửa
                   </label>
                     {/* </div> */}
                 </td>
@@ -54,9 +58,9 @@ export default function Hospital() {
           </tbody>
         </table>
       </div>
-        <label htmlFor="my-modal" className="btn mt-5">
+        {/* <label htmlFor="my-modal" className="btn mt-5">
           Thêm Phòng khám
-        </label>
+        </label> */}
         <AddHospital />
         <EditHospital valueEdit={valueEdit} />
     </div>

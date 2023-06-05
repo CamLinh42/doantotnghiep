@@ -67,7 +67,9 @@ const AllUsers = () => {
                     </thead>
                     <tbody>
                         {
-                            users && users.map((user, i) => <tr key={user._id}>
+                            users && users.map((user, i) => 
+                            (userDb?.role == 2 && user.role == 3 || userDb?.role == 3 && user.role == 1 ) &&
+                            <tr key={user._id}>
                                 <th>{i + 1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>

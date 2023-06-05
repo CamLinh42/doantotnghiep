@@ -1,10 +1,17 @@
 
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import Navbar from '../Shared/Navbar/Navbar';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AuthContext } from '../Context/AuthProvider';
 const DashBoardLayout = () => {
     const { user, logOut, userDb } = useContext(AuthContext)
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(userDb?.role == 4){
+            navigate('/dashboard/benhvien')
+        }
+    }, [])
     return (
         <div>
             <Navbar></Navbar>
@@ -19,11 +26,14 @@ const DashBoardLayout = () => {
                         {(userDb?.role == 2 || userDb?.role == 3) && 
                             <li className='my-1'><Link to='/dashboard'>Danh sách Lịch</Link></li>
                         }
+                        {(userDb?.role == 2) && 
+                            <li className='my-1'><Link to='/dashboard/allusers'>Người dùng</Link></li> 
+                        }
                         {/* <li className='my-1'><Link to='/dashboard/bacsi'>Bác sĩ</Link></li> */}
                         {userDb?.role == 4 && <>
-                        <li className='my-1'><Link to='/dashboard/allusers'>Người dùng</Link></li>
+                        {/* <li className='my-1'><Link to='/dashboard/allusers'>Người dùng</Link></li> */}
                         <li className='my-1'><Link to='/dashboard/benhvien'>Phòng khám</Link></li>
-                        <li className='my-1'><Link to='/dashboard/khoa'>Khoa</Link></li>
+                        {/* <li className='my-1'><Link to='/dashboard/khoa'>Khoa</Link></li> */}
                         </>
                         }
                     </ul>

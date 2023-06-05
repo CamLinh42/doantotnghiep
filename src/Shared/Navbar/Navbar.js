@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthProvider';
+import AddHospital from '../../pages/DashBoard/Hopital/AddHospital';
 
 const Navbar = () => {
     const { user, logOut, userDb } = useContext(AuthContext)
@@ -39,6 +40,7 @@ const Navbar = () => {
                         <label tabIndex={0} className="btn">{user.displayName || userDb.name}</label>
                         <ul tabIndex={0} className="dropdown-content menu shadow bg-base-100 rounded-box top-16 right-0">
                             <li><a>{user.email}</a></li>
+                            {/* <li className='flex justify-center'><Link  to='/info' className='btn btn-ghost flex items-center w-full '>Cập nhật thông tin</Link></li> */}
                             <li className='flex items-center'><Link onClick={handleLogOut} className='btn btn-ghost flex items-center w-full'>Đăng xuất</Link></li>
                         </ul>
                     </div>
@@ -46,13 +48,18 @@ const Navbar = () => {
 
             </>
             :
+            <>
             <li><Link className='btn btn-ghost' to='/login'>Login</Link></li>
+            <li><label htmlFor="my-modal" className='btn btn-ghost'>Đăng kí phòng khám</label></li>
+             </>
         }
 
     </>
 
     return (
         <div className="navbar bg-base-100 flex justify-between">
+            <AddHospital />
+
             <div className="navbar-start">
                 <div className="dropdown">
                     <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -72,6 +79,8 @@ const Navbar = () => {
             <label htmlFor="dashBoard-drawer" tabIndex={2} className="btn btn-ghost lg:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
             </label>
+            <div>
+            </div>
         </div>
     );
 };

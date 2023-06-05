@@ -12,7 +12,8 @@ import { AppointmentContext } from "../../../Context/AppointmentProvide";
 
 const BookingModal = ({ valueBook, selectedDate }) => {
   const formRef = useRef(null);
-  const { name } = valueBook;
+  const { bacsi, name } = valueBook;
+  console.log(valueBook, "VvalueBook")
   const [date, setDate] = useState(null)
   const { user, users,userDb, listAllUsers } = useContext(AuthContext);
   const { department, getDepartment } = useContext(DepartmentContext);
@@ -43,15 +44,10 @@ const BookingModal = ({ valueBook, selectedDate }) => {
       toast.error("Đăng nhập")
       return
     }
-    if(!data.doctor){
-      toast.error("Chọn bác sĩ hoặc bệnh viện có bác sĩ")
-      return
-    }
     if(selectedDate){
     await addDoc(collection(db, "lichkhambenh"), {
       hospital: name,
-      department: data.department,
-      doctor: data.doctor,
+      doctor: bacsi,
       date: date,
       email: data.email,
       hour: data.hour,
@@ -200,7 +196,7 @@ const BookingModal = ({ valueBook, selectedDate }) => {
                 ))}
               </select>
             </div>}
-            <div className="form-control w-full m-0">
+            {/* <div className="form-control w-full m-0">
               <label className="label p-1">
                 <span className="label-text">Phòng khoa</span>
               </label>
@@ -211,18 +207,19 @@ const BookingModal = ({ valueBook, selectedDate }) => {
                   </option>
                 ))}
               </select>
-            </div>
+            </div> */}
             <div className="form-control w-full m-0">
               <label className="label p-1">
                 <span className="label-text">Bác sĩ</span>
               </label>
-              <select name="doctor" className="select select-primary select-bordered w-full ">
-                {users && users.map((item, index) => (
-                  <option key={index} value={item.name}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
+              <input
+                name="email"
+                type="email"
+                defaultValue={bacsi && bacsi}
+                placeholder="Bác sĩ"
+                readOnly={selectedDate}
+                className="input input-bordered input-success w-full"
+              />
             </div>
             <div className="form-control w-full m-0">
               <label className="label p-1">

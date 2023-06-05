@@ -26,6 +26,7 @@ export default function History() {
                     <th>Số điện thoại</th>
                     <th>Ghi chú</th>
                     <th>Trạng thái</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +41,7 @@ export default function History() {
                 <td>{item.phone}</td>
                 <td>{item.note}</td>
                 <td>{item.trangthai ? (item.trangthai == 1 ? "Đã xác nhận" : item.trangthai == 2 ? "Đã khám" : "") : "Chờ xác nhận"}</td>
+                <td><button disabled={item.trangthai != 2} className='btn btn-xs' >Đánh giá</button></td>
             </tr>)}
             </tbody>
         </table>

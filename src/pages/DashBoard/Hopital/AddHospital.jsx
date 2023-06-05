@@ -3,6 +3,8 @@ import React, { useCallback, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { db, uploadFile } from "../../../Firebase/Firebase.config";
 import { HospitalContext } from "../../../Context/HospitalProvider";
+import { AuthContext } from "../../../Context/AuthProvider";
+import { toast } from "react-hot-toast";
 
 export default function AddHospital() {
 
@@ -10,8 +12,9 @@ export default function AddHospital() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [listImage, setListImage] = useState([]);
   const [err, setErr] = useState("")
-
-  const handleAddDoctor = async (data) => {
+  const { createUser, updateUser, logOut } = useContext(AuthContext);
+  const [signUpError, setSignUpError] = useState("");
+  const handleAddPhongKham = async (data) => {
     setErr("");
     setTimeout( async ()=>{
       await addDoc(collection(db, "benhvien"), {
@@ -20,8 +23,35 @@ export default function AddHospital() {
         address: data.address,
         chitiet:data.chitiet,
         anh:listImage,
-        chuyenchua:data.chuyenchua
+        chuyenchua:data.chuyenchua,
+        bacsi: data.bacsi
       }).then((res) => {
+
+    setSignUpError("");
+    createUser(data.email, data.matkhau)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        toast("Sign Up seccessfully");
+        // update profile
+        const userInfo = {
+          displayName: data.name,
+          admin: false
+        };
+        updateUser(userInfo)
+          .then(() => {
+            saveUser(data.name, data.email, data.matkhau);
+          })
+          .catch((error) => console.log());
+      })
+      .catch((error) => {
+        console.log(error);
+        setSignUpError(error.message);
+      });
+
+
+
+
         console.log(res, "res")
         getHospital()
         const modal = document.getElementById("my-modal")
@@ -33,6 +63,18 @@ export default function AddHospital() {
     },1000)
 
   }
+  const saveUser = async (name, email, password) => {
+    await addDoc(collection(db, "users"), {
+      name: name,
+      email: email,
+      password: password,
+      role: 2,
+    }).then((res) => {console.log(res, "res"); 
+    toast("Tạo bác sĩ thành công");
+    logOut()
+  } 
+    ).catch(e => {console.log(e, "error")})
+  };
   const handleSaveImage = useCallback((e) => {
     const listFile = e.target.files;
     let arr = [];
@@ -62,7 +104,7 @@ export default function AddHospital() {
       <input type="checkbox" id="my-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box box-border">
-          <form onSubmit={handleSubmit(handleAddDoctor)}>
+          <form onSubmit={handleSubmit(handleAddPhongKham)}>
             <div className="form-control w-full m-0 box-border">
               <label className="label">
                 <span className="label-text">Tên Phòng khám</span>
@@ -78,21 +120,6 @@ export default function AddHospital() {
                 </p>
               )}
             </div>
-            {/* <div className="form-control w-full m-0">
-              <label className="label">
-                <span className="label-text">Your Email</span>
-              </label>
-              <input
-                type="email"
-                {...register("email", { required: "Email is required" })}
-                className="input input-primary input-bordered w-full"
-              />
-              {errors.email && (
-                <p role="alert" className="text-red-600">
-                  {errors.email?.message}
-                </p>
-              )}
-            </div> */}
             <div className="form-control w-full m-0">
               <label className="label">
                 <span className="label-text">Số điện thoại</span>
@@ -125,41 +152,7 @@ export default function AddHospital() {
             </div>
             <div className="form-control w-full m-0">
               <label className="label">
-                <span className="label-text">Chi tiết phòng khám</span>
-              </label>
-              <input
-                type="text"
-                {...register("chitiet", { required: "chitiet is required" })}
-                className="input input-primary input-bordered w-full"
-              />
-              {errors.chitiet && (
-                <p role="alert" className="text-red-600">
-                  {errors.chitiet?.message}
-                </p>
-              )}
-            </div>
-            
-            <div className="form-control w-full m-0">
-              <label className="label">
-                <span className="label-text">Ảnh phòng khám</span>
-              </label>
-              <input
-                type="file"
-                className="input input-primary input-bordered w-full"
-                accept="image/*"
-                multiple
-                onChange={handleSaveImage}
-              />
-              {!!err && (
-                <p role="alert" className="text-red-600">
-                  {err}
-                </p>
-              )}
-            </div>
-
-            <div className="form-control w-full m-0">
-              <label className="label">
-                <span className="label-text">Chuyên chữa các bệnh</span>
+                <span className="label-text">Chuyên môn</span>
               </label>
               <input
                 type="text"
@@ -172,45 +165,70 @@ export default function AddHospital() {
                 </p>
               )}
             </div>
-
-
-            {/* <div className="form-control w-full m-0">
+            <div className="form-control w-full m-0">
               <label className="label">
-                <span className="label-text">Specialty</span>
+                <span className="label-text">Chi tiết</span>
               </label>
-              <select
-                {...register("specialty", {
-                  required: "Specialty is required",
-                })}
-                className="select select-primary select-bordered w-full "
-              >
-                <option disabled selected>
-                  Please select a Specialty
-                </option>
-                {
-                  specialtys.map(specialty => <option
-                      key={specialty._id}
-                      value={specialty.name}
-                  >{specialty.name}</option>)
-              }
-              </select>
-            </div> */}
-
-            {/* <div className="form-control w-full m-0">
+              <input
+                type="text"
+                {...register("chitiet", { required: "chitiet is required" })}
+                className="input input-primary input-bordered w-full"
+              />
+              {errors.chitiet && (
+                <p role="alert" className="text-red-600">
+                  {errors.chitiet?.message}
+                </p>
+              )}
+            </div>
+            <div className="form-control w-full m-0">
               <label className="label">
-                <span className="label-text">Your Email</span>
+                <span className="label-text">Bác sĩ</span>
+              </label>
+              <input
+                type="text"
+                {...register("bacsi", { required: "bắt buộc" })}
+                className="input input-primary input-bordered w-full"
+              />
+            </div>
+            <div className="form-control w-full m-0">
+              <label className="label">
+                <span className="label-text">Hình ảnh</span>
               </label>
               <input
                 type="file"
-                {...register("img", { required: "Photo is required" })}
-                className="input input-primary input-bordered w-full"
+                className="input input-primary input-bordered w-full flex items-center"
+                accept="image/*"
+                multiple
+                onChange={handleSaveImage}
               />
-              {errors.img && (
+              {!!err && (
                 <p role="alert" className="text-red-600">
-                  {errors.img?.message}
+                  {err}
                 </p>
               )}
-            </div> */}
+            </div>
+            <div className="form-control w-full m-0">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="text"
+                {...register("email", { required: "bắt buộc" })}
+                className="input input-primary input-bordered w-full"
+              />
+            </div>
+            <div className="form-control w-full m-0">
+              <label className="label">
+                <span className="label-text">Mật khẩu</span>
+              </label>
+              <input
+                type="text"
+                {...register("matkhau", { required: "bắt buộc" })}
+                className="input input-primary input-bordered w-full"
+              />
+            </div>
+          
+            
 
             <div className="modal-action justify-center">
               <label htmlFor="my-modal" className="btn" onClick={()=>setListImage([])}>Hủy</label>

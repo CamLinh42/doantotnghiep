@@ -9,17 +9,15 @@ export default function EditHospital({valueEdit}) {
   const { getHospital  } = useContext(HospitalContext);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const handleEdit = async(data) => {
-    console.log(data, "check")
     const userRef = doc(db, "benhvien", valueEdit.id);
-    await updateDoc(userRef, data).then((res) => {
+    await updateDoc(userRef,  {status: "chapnhan"}).then((res) => {
       success()
     })
   }
 
   const handleDelete = async(data) => {
-    console.log(data, "check")
-    await deleteDoc(doc(db, "benhvien", valueEdit.id)).then((res) => {
-      console.log(res, "resres")
+    const userRef = doc(db, "benhvien", valueEdit.id);
+    await updateDoc(userRef, {status: "tuchoi"}).then((res) => {
       success()
     })
   }
@@ -47,15 +45,10 @@ export default function EditHospital({valueEdit}) {
               </label>
               <input
                 type="name"
-                {...register("name", { required: "Name is required" })}
                 defaultValue={valueEdit?.name}
                 className="input input-primary input-bordered w-full box-border"
+                readOnly
               />
-              {errors.name && (
-                <p role="alert" className="text-red-600">
-                  {errors.name?.message}
-                </p>
-              )}
             </div>
             <div className="form-control w-full m-0">
               <label className="label">
@@ -64,14 +57,9 @@ export default function EditHospital({valueEdit}) {
               <input
                 type="number"
                 defaultValue={valueEdit?.phone}
-                {...register("phone", { required: "Phone is required" })}
                 className="input input-primary input-bordered w-full"
+                readOnly
               />
-              {errors.phone && (
-                <p role="alert" className="text-red-600">
-                  {errors.phone?.message}
-                </p>
-              )}
             </div>
             <div className="form-control w-full m-0">
               <label className="label">
@@ -80,19 +68,47 @@ export default function EditHospital({valueEdit}) {
               <input
               defaultValue={valueEdit?.address}
                 type="text"
-                {...register("address", { required: "Address is required" })}
                 className="input input-primary input-bordered w-full"
+                readOnly
               />
-              {errors.address && (
-                <p role="alert" className="text-red-600">
-                  {errors.address?.message}
-                </p>
-              )}
+            </div>
+            <div className="form-control w-full m-0">
+              <label className="label">
+                <span className="label-text">Chi tiết</span>
+              </label>
+              <input
+              defaultValue={valueEdit?.chitiet}
+                type="text"
+                className="input input-primary input-bordered w-full"
+                readOnly
+              />
+            </div>
+            <div className="form-control w-full m-0">
+              <label className="label">
+                <span className="label-text">Chuyên môn</span>
+              </label>
+              <input
+              defaultValue={valueEdit?.chuyenmon}
+                type="text"
+                className="input input-primary input-bordered w-full"
+                readOnly
+              />
+            </div>
+            <div className="form-control w-full m-0">
+              <label className="label">
+                <span className="label-text">Bác sĩ</span>
+              </label>
+              <input
+              defaultValue={valueEdit?.bacsi}
+                type="text"
+                className="input input-primary input-bordered w-full"
+                readOnly
+              />
             </div>
             <div className="modal-action justify-center pt-10">
               <label htmlFor="edit-modal" className="btn">Hủy</label>
               <button type="submit" className="btn">Xác nhận</button>
-              <label htmlFor="delete-modal" className="btn">delete</label>
+              <label htmlFor="delete-modal" className="btn">Từ chối</label>
             </div>
           </form>
               <button id="delete-modal" onClick={()=> handleDelete("delete")} className="btn btn-secondary h-1 w-1 p-0 m-0 text-white invisible">Xóa</button>
