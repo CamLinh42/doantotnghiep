@@ -23,8 +23,8 @@ const changeStatus = async (id, status) => {
 
 const getData = () => {
     if(userDb){
-        if(userDb?.role == 2){
-            getAppointment(null, null, userDb.name)
+        if(userDb?.role == 2 || userDb?.role == 3){
+            getAppointment(null, userDb.hospital, null)
         } else if( userDb?.role == 3) {
             getAppointment(null, userDb.hospital, null)
         }
@@ -48,7 +48,7 @@ const getData = () => {
                             <th>Thời gian</th>
                             <th>Ngày</th>
                             {userDb?.role == 2 && <th>Bệnh viện</th>}
-                            <th>Khoa</th>
+                            {/* <th>Khoa</th> */}
                             <th>Bác sĩ</th>
                             <th>Số điện thoại</th>
                             <th>Email</th>
@@ -63,7 +63,7 @@ const getData = () => {
                         <td>{item.hour}</td>
                         <td>{item.date}</td>
                         {userDb?.role == 2 && <td>{item.hospital}</td>}
-                        <td>{item.department}</td>
+                        {/* <td>{item.department}</td> */}
                         <td>{item.doctor}</td>
                         <td>{item.phone}</td>
                         <td>{item.email}</td>

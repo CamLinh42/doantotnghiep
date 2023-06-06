@@ -49,7 +49,7 @@ const BookingModal = ({ valueBook, selectedDate }) => {
       hospital: name,
       doctor: bacsi,
       date: date,
-      email: data.email,
+      email: user.email,
       hour: data.hour,
       name: data.name,
       note: data.note,
@@ -65,32 +65,7 @@ const BookingModal = ({ valueBook, selectedDate }) => {
         toast.error("Thất bại");
         console.log(e, "error");
       });
-    } else {
-     
-      await addDoc(collection(db, "lichkhambenh"), {
-        hospital: data.hospital,
-        department: data.department,
-        doctor: data.doctor,
-        date: date,
-        email: data.email,
-        hour: data.hour,
-        name: data.name,
-        note: data.note,
-        phone: data.phone,
-      })
-        .then((res) => {
-          toast.success("Thành công");
-          getAppointment(null, null, userDb?.name)
-          if (modal.checked) {
-            modal.checked = false;
-          }
-        })
-        .catch((e) => {
-          toast.error("Thất bại");
-          console.log(e, "error");
-        });
-    }
-
+    } 
   };
 
   useEffect(() => {

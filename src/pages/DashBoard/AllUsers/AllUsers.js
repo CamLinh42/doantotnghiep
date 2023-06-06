@@ -7,11 +7,12 @@ import { collection, deleteDoc, doc, getDocs, orderBy, query, startAt, updateDoc
 import { AuthContext } from '../../../Context/AuthProvider';
 import { HospitalContext } from '../../../Context/HospitalProvider';
 import { DepartmentContext } from '../../../Context/DepartmentProvide';
+import AddUserNhanVien from './addUserNhanVien';
 
 const AllUsers = () => {
   const { userDb ,users, listAllUsers, searchUser  } = useContext(AuthContext);
-  const { hospital, getHospital  } = useContext(HospitalContext);
-  const { department, getDepartment  } = useContext(DepartmentContext);
+//   const { hospital, getHospital  } = useContext(HospitalContext);
+//   const { department, getDepartment  } = useContext(DepartmentContext);
   const [idActive, setIdActive] = useState()
   const handleChangeRole = async (e) => {
     const userRef = doc(db, "users", idActive);
@@ -22,7 +23,7 @@ const AllUsers = () => {
   const deleteUser = async (id, bl) => {
     const userRef = doc(db, "users", id);
     await updateDoc(userRef, {block: !bl}).then((res) => {
-        listAllUsers()
+        listAllUsers(userDb.hospital)
       toast.success("Thành công")
     })
   }
@@ -42,14 +43,21 @@ const AllUsers = () => {
   }
   
   useEffect(() => {
-    listAllUsers()
-    getHospital()
-    getDepartment()
+    listAllUsers(userDb.hospital)
+    // getHospital()
+    // getDepartment()
   }, [])
     return (
         <div>
             <h2 className='text-2xl'>All Users</h2>
-            <input type="text" placeholder="Tìm kiếm " onChange={searchUser} className="input input-bordered input-secondary w-full mt-3 ml-2 max-w-xs" />
+            <label
+                htmlFor="modal22-toggle"
+                className="btn btn-xs"
+            >
+        Thêm nhân viên
+      </label>
+            <AddUserNhanVien />
+            {/* <input type="text" placeholder="Tìm kiếm " onChange={searchUser} className="input input-bordered input-secondary w-full mt-3 ml-2 max-w-xs" /> */}
             <div className="overflow-x-auto p-5">
                 <table className="table w-full max-h-[calc(100vh-250px)]">
 
@@ -58,9 +66,9 @@ const AllUsers = () => {
                             <th></th>
                             <th>Tên</th>
                             <th>Email</th>
-                            <th>Vị trí</th>
-                            <th>Phòng khám</th>
-                            <th>Phòng Khoa</th>
+                            {/* <th>Vị trí</th> */}
+                            {/* <th>Phòng khám</th> */}
+                            {/* <th>Phòng Khoa</th> */}
                             <th>Hành động</th>
 
                         </tr>
@@ -73,7 +81,7 @@ const AllUsers = () => {
                                 <th>{i + 1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
-                                <td>
+                                {/* <td>
                                 <div className="form-control w-full max-w-xs">
                                     <select onChange={handleChangeRole} onClick={() => setIdActive(user.id)} 
                                         disabled={userDb?.role == 4 && userDb.email == user.email}
@@ -81,8 +89,8 @@ const AllUsers = () => {
                                         {dataRole.map(item => (<option value={item.id}  selected={item.id == user?.role}>{item.name}</option>))}
                                     </select>
                                     </div>
-                                </td>
-                                <td>
+                                </td> */}
+                                {/* <td>
                                 <div className="form-control w-full m-0">
                                     <select
                                         className="select select-primary select-bordered w-full "
@@ -117,7 +125,7 @@ const AllUsers = () => {
                                         ))}
                                     </select>
                                     </div>
-                                </td>
+                                </td> */}
                                 <td><button onClick={ () => deleteUser(user.id, !!user.block)} className='btn btn-xs btn-ghost'>{!user.block ? "Block" : "UnBlock"}</button></td>
                             </tr>)
                         }

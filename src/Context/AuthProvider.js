@@ -27,27 +27,18 @@ export const AuthContext=createContext();
         setUserDb(null)
         return signOut(auth);
     }
-    const listAllUsers = async (idBv) => {
+    const listAllUsers = async (tenBv) => {
         const all = [];
         let querySnapshot
-        if(idBv){
-            const q = query(collection(db, "users"), where("hospital", "==", idBv));
+        if(tenBv){
+            const q = query(collection(db, "users"), where("hospital", "==", tenBv));
             querySnapshot = await getDocs(q);
             querySnapshot.docs.forEach((item) => {
                 const row = item.data();
-                
-                if(row.role == 2){
+                if(row.role == 3){
                     row.id = item.id;
                     all.push(row);
                 }
-            });
-            setUsers(all)
-        }else {
-            querySnapshot = await getDocs(collection(db, "users"));
-            querySnapshot.docs.forEach((item) => {
-                const row = item.data();
-                    row.id = item.id;
-                    all.push(row);
             });
             setUsers(all)
         }

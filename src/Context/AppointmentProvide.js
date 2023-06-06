@@ -7,6 +7,7 @@ export const AppointmentContext = createContext();
 const AppointmentProvider = ({ children }) => {
     const [appointment, setAppointment] = useState([])
     const getAppointment = async (email, bv, bs) => {
+      console.log(email, bv, bs)
         const all = [];
         let querySnapshot
         if(email){
@@ -22,7 +23,7 @@ const AppointmentProvider = ({ children }) => {
           const q = query(citiesRef, where("hospital", "==", bv));
           querySnapshot = await getDocs(q);
         }
-        querySnapshot.docs.forEach((item) => {
+        querySnapshot && querySnapshot.docs.forEach((item) => {
           const row = item.data();
           row.id = item.id;
           all.push(row);

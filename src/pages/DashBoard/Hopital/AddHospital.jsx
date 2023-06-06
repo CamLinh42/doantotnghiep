@@ -40,7 +40,7 @@ export default function AddHospital() {
         };
         updateUser(userInfo)
           .then(() => {
-            saveUser(data.name, data.email, data.matkhau);
+            saveUser(data.name, data.email, data.matkhau, data.name);
           })
           .catch((error) => console.log());
       })
@@ -63,12 +63,13 @@ export default function AddHospital() {
     },1000)
 
   }
-  const saveUser = async (name, email, password) => {
+  const saveUser = async (name, email, password, hospital) => {
     await addDoc(collection(db, "users"), {
       name: name,
       email: email,
       password: password,
       role: 2,
+      hospital: hospital
     }).then((res) => {console.log(res, "res"); 
     toast("Tạo bác sĩ thành công");
     logOut()
