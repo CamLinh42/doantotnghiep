@@ -9,7 +9,7 @@ const DashBoardLayout = () => {
 
     useEffect(() => {
         if(userDb?.role == 4){
-            navigate('/dashboard/benhvien')
+            navigate('/dashboard/phongkham')
         }
     }, [])
     return (
@@ -32,7 +32,8 @@ const DashBoardLayout = () => {
                         {/* <li className='my-1'><Link to='/dashboard/bacsi'>Bác sĩ</Link></li> */}
                         {userDb?.role == 4 && <>
                         {/* <li className='my-1'><Link to='/dashboard/allusers'>Người dùng</Link></li> */}
-                        <li className='my-1'><Link to='/dashboard/benhvien'>Phòng khám</Link></li>
+                        <li className='my-1'><Link to='/dashboard/phongkham'>Phòng khám</Link></li>
+                        <li className='my-1'><Link to='/dashboard/thongke'>Thông tin</Link></li>
                         {/* <li className='my-1'><Link to='/dashboard/khoa'>Khoa</Link></li> */}
                         </>
                         }

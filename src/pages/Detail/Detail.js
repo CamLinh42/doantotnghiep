@@ -19,7 +19,7 @@ export default function Detail() {
     if (bv) {
       console.log(bv, "bvbvbvbvbv2")
       const citiesRef = collection(db, "binhluan");
-      const q = query(citiesRef, where("benhviendanhgia", "==", bv));
+      const q = query(citiesRef, where("phongkhamdanhgia", "==", bv));
       querySnapshot = await getDocs(q);
     }
     querySnapshot.docs.forEach((item) => {
@@ -48,15 +48,15 @@ export default function Detail() {
             {hospitalByName.map((hospital, _) => {
               return (
                 <div className="bg-gray-100 p-8 rounded-lg shadow-md w-1/2 mx-20">
-                  <h1 className="text-4xl font-bold text-blue-600 mb-4">
-                    Bệnh viện: {hospital.name}
+                  <h1 className="text-2xl font-bold text-blue-600 mb-4">
+                    Phòng khám: {hospital.name}
                   </h1>
                   <div className="border p-6 rounded-md bg-white">
-                    <h1 className=" font-bold mb-2 text-2xl">
+                    <h1 className=" font-bold mb-2 text-xl">
                       Bác sỹ: {hospital.bacsi}
                     </h1>
                     <h1 className=" text-lg mb-2 text-gray-700 ">
-                      Chi tiết: {hospital.chitiet}
+                      Chuyên khám: {hospital.chitiet}
                     </h1>
                     <h1 className="text-lg text-gray-700 mb-2">
                       Chuyên chữa: {hospital.chuyenchua}
@@ -69,11 +69,11 @@ export default function Detail() {
                     </h1>
                   </div>
                   <div className="flex justify-center mt-10">
-                  <img
+                  {/* <img
                     key={_}
                     src={hospitalByName[0].anh[0]}
                     className="max-w-sm rounded-lg shadow-2xl"
-                    />
+                    /> */}
                     </div>
                 </div>
               );

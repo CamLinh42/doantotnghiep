@@ -9,14 +9,14 @@ export default function EditHospital({valueEdit}) {
   const { getHospital  } = useContext(HospitalContext);
   const { register, handleSubmit, formState: { errors } } = useForm();
   const handleEdit = async(data) => {
-    const userRef = doc(db, "benhvien", valueEdit.id);
+    const userRef = doc(db, "phongkham", valueEdit.id);
     await updateDoc(userRef,  {status: "chapnhan"}).then((res) => {
       success()
     })
   }
 
   const handleDelete = async(data) => {
-    const userRef = doc(db, "benhvien", valueEdit.id);
+    const userRef = doc(db, "phongkham", valueEdit.id);
     await updateDoc(userRef, {status: "tuchoi"}).then((res) => {
       success()
     })
@@ -76,7 +76,7 @@ export default function EditHospital({valueEdit}) {
             </div>
             <div className="form-control w-full m-0">
               <label className="label">
-                <span className="label-text">Chi tiết</span>
+                <span className="label-text">Chuyên khám</span>
               </label>
               <input
               defaultValue={valueEdit?.chitiet}

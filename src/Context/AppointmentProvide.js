@@ -31,7 +31,22 @@ const AppointmentProvider = ({ children }) => {
         setAppointment(all)
       }
 
-  const appointmentInfo = { appointment, getAppointment };
+      const [lengthca, setLengthCa] = useState(0)
+      const counta = async () => {
+          const all = [];
+          let querySnapshot
+          const q = query(collection(db, "lichkhambenh"));
+          querySnapshot = await getDocs(q);
+          querySnapshot.docs.forEach((item) => {
+              const row = item.data();
+                  row.id = item.id;
+                  all.push(row);
+          });
+          setLengthCa(all.length)
+          console.log(all.length,  "check2222")
+      }
+
+  const appointmentInfo = { lengthca,counta, appointment, getAppointment };
 
   return (
     <AppointmentContext.Provider value={appointmentInfo}>

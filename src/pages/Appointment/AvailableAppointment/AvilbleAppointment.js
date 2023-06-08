@@ -11,10 +11,11 @@ const AvilbleAppointment = ({ selectedDate, setSelectedDate }) => {
     const date = format(selectedDate, 'PP');
     // const [isLoading, setIsLoading] = useState(false)
     // react query
-  const { hospital, getHospital  } = useContext(HospitalContext);
+  const { hospital, getHospital, getHospitalByName  } = useContext(HospitalContext);
 
   const searchBv = (e) => {
     getHospital(e.target.value)
+    // getHospitalByName(e.target.value)
   }
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const AvilbleAppointment = ({ selectedDate, setSelectedDate }) => {
         <section>
             <div className='mx-auto text-center text-secondary font-bold text-xl p-3 mt-10'>
                 <p className='text-center text-secondary font-bold text-xl p-3 mt-10'>Bạn đã chọn ngày: {format(selectedDate, "dd/MM/yyyy")}</p>
-                {/* <input type="text" onChange={searchBv} placeholder="Tìm bệnh viện" className="input input-bordered w-full max-w-xs" /> */}
+                <input type="text" onChange={searchBv} placeholder="Tìm bệnh viện" className="input input-bordered w-full max-w-xs" />
             </div>
             <div className='grid mt-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                 {

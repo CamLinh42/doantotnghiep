@@ -47,12 +47,12 @@ const getData = () => {
                             <th>Tên</th>
                             <th>Thời gian</th>
                             <th>Ngày</th>
-                            {userDb?.role == 2 && <th>Bệnh viện</th>}
+                            {userDb?.role == 2 && <th>Phòng khám</th>}
                             {/* <th>Khoa</th> */}
                             <th>Bác sĩ</th>
                             <th>Số điện thoại</th>
                             <th>Email</th>
-                            <th>Ghi chú</th>
+                            <th>Tình trạng bệnh</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>

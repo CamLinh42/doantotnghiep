@@ -17,7 +17,7 @@ export default function AddHospital() {
   const handleAddPhongKham = async (data) => {
     setErr("");
     setTimeout( async ()=>{
-      await addDoc(collection(db, "benhvien"), {
+      await addDoc(collection(db, "phongkham"), {
         name: data.name,
         phone: data.phone,
         address: data.address,
@@ -127,6 +127,8 @@ export default function AddHospital() {
               </label>
               <input
                 type="number"
+                min={"0"}
+                onKeyDown="return false"
                 {...register("phone", { required: "Phone is required" })}
                 className="input input-primary input-bordered w-full"
               />
@@ -168,7 +170,7 @@ export default function AddHospital() {
             </div>
             <div className="form-control w-full m-0">
               <label className="label">
-                <span className="label-text">Chi tiết</span>
+                <span className="label-text">Chuyên khám</span>
               </label>
               <input
                 type="text"

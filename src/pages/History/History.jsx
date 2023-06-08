@@ -14,7 +14,7 @@ export default function History() {
   const danhgia = async () => {
     await addDoc(collection(db, "binhluan"), {
       tenNguoiDanhGia: activeRate.ten,
-      benhviendanhgia: activeRate.bv,
+      phongkhamdanhgia: activeRate.bv,
       noidung: document.getElementById("danhGiaInput").value,
     })
       .then((res) => {
@@ -43,11 +43,10 @@ export default function History() {
               <th>Tên</th>
               <th>Thời gian</th>
               <th>Ngày</th>
-              <th>Bệnh viện</th>
-              <th>Khoa</th>
+              <th>Phòng khám</th>
               <th>Bác sĩ</th>
               <th>Số điện thoại</th>
-              <th>Ghi chú</th>
+              <th>Tình trạng bệnh</th>
               <th>Trạng thái</th>
               <th></th>
             </tr>
@@ -60,9 +59,8 @@ export default function History() {
                   <td>{item.name}</td>
                   <td>{item.hour}</td>
                   <td>{item.date}</td>
-                  <td>{item.hospital}</td>
-                  <td>{item.department}</td>
-                  <td>{item.doctor}</td>
+                  <td className="truncate max-w-[200px]" title={item.hospital}>{item.hospital}</td>
+                  <td className="truncate max-w-[200px]" title={item.doctor}>{item.doctor}</td>
                   <td>{item.phone}</td>
                   <td>{item.note}</td>
                   <td>

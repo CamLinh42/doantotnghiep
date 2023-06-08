@@ -19,10 +19,10 @@ const HospitalProvider = ({ children }) => {
     const all = [];
 
     if (name) {
-      const q = query(collection(db, "benhvien"), orderBy("name"), startAt(name));
+      const q = query(collection(db, "phongkham"), orderBy("name"), startAt(name));
       querySnapshot = await getDocs(q);
     } else {
-      querySnapshot = await getDocs(collection(db, "benhvien"));
+      querySnapshot = await getDocs(collection(db, "phongkham"));
     }
     querySnapshot.docs.forEach((item) => {
       const row = item.data();
@@ -33,7 +33,7 @@ const HospitalProvider = ({ children }) => {
   };
   const getHospitalByName = async (name) => {
     const allData = [];
-    const q = query(collection(db, "benhvien"), where("name", "==", name));
+    const q = query(collection(db, "phongkham"), where("name", "==", name));
     const snapshot = await getDocs(q);
     snapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data());

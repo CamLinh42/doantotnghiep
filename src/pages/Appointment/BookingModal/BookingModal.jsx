@@ -198,13 +198,13 @@ const BookingModal = ({ valueBook, selectedDate }) => {
             </div>
             <div className="form-control w-full m-0">
               <label className="label p-1">
-                <span className="label-text">Ghi chú</span>
+                <span className="label-text">Tình trạng bệnh</span>
               </label>
               <input
                 name="note"
                 type="text"
                 required
-                placeholder="Ghi chú"
+                placeholder="Tình trạng bệnh"
                 className="input input-bordered input-success w-full"
               />
             </div>

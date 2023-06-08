@@ -16,7 +16,7 @@ const AvailableAppointmentCard = ({ hospital, setValueBook }) => {
                     <div className="card-actions ">
                         <label onClick={() => setValueBook(hospital)} htmlFor="booking-modal" className="btn btn-primary w-full text-white">Đặt lịch ngay</label>
                         <label onClick={()=> navigate(`/detail/${name}`)} className="btn btn-primary w-full text-white">
-                            Chi tiết bệnh viện
+                            Chi tiết phòng khám
                         </label>
                     </div>
                 </div>

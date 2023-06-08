@@ -13,6 +13,7 @@ import DisplayError from "../../Shared/DisplayError/DisplayError";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import Hopital from "../../pages/DashBoard/Hopital/Hopital";
+import ThongKe from "../../pages/DashBoard/ThongKe/ThongKe";
 import Department from "../../pages/DashBoard/Department/Department";
 import Doctor from "../../pages/DashBoard/Doctor/Doctor";
 import History from "../../pages/History/History";
@@ -43,7 +44,8 @@ const router = createBrowserRouter([
         errorElement:<DisplayError></DisplayError>,
         children: [
             { path: '/dashboard', element: <MyAppointment></MyAppointment> },
-            { path: '/dashboard/benhvien', element:<AdminRoute><Hopital></Hopital></AdminRoute>},
+            { path: '/dashboard/phongkham', element:<AdminRoute><Hopital></Hopital></AdminRoute>},
+            { path: '/dashboard/thongke', element:<AdminRoute><ThongKe></ThongKe></AdminRoute>},
             { path: '/dashboard/khoa', element:<AdminRoute><Department></Department></AdminRoute>},
             { path: '/dashboard/allusers', element:<AdminRoute><AllUsers></AllUsers></AdminRoute>},
             { path: '/dashboard/bacsi', element:<AdminRoute><Doctor></Doctor></AdminRoute>},

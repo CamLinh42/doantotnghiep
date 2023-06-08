@@ -44,6 +44,22 @@ export const AuthContext=createContext();
         }
             
     };
+    const [lengthc, setLengthC] = useState(0)
+    const count = async () => {
+        const all = [];
+        let querySnapshot
+        const q = query(collection(db, "users"));
+        querySnapshot = await getDocs(q);
+        querySnapshot.docs.forEach((item) => {
+            const row = item.data();
+            if(row.role == 1){
+                row.id = item.id;
+                all.push(row);
+            }
+        });
+        setLengthC(all.length)
+        console.log(all.length,  "check2222")
+    }
 
     const getRole = async () => {
         const q = query(collection(db, "users"), where("email", "==", user.email));
@@ -98,7 +114,9 @@ export const AuthContext=createContext();
         updateUser,
         listAllUsers,
         userDb,
-        searchUser
+        searchUser,
+        lengthc,
+        count
     }
     return (
         <AuthContext.Provider value={authInfo}>
